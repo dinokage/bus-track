@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>JavaScript Geolocation API</h2>
+    <p>Click the button to get your coordinates.</p>
+
+    <button onclick="getLocation()">Try It</button>
+
+    <p id="demo"></p>
+
+    <script>
+      const x = document.getElementById("demo");
+      const
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
+
+      function showPosition(position) {
+        x.innerHTML =
+          "Latitude: " +
+          position.coords.latitude +
+          "<br>Longitude: " +
+          position.coords.longitude;
+        storePosition(position);
+      }
+
+      function storePosition(position) {
+        let data = {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+          speed: position.coords.speed,
+        };
+        fetch(
+          "POST",
+          "https://bus-track-f7fe8-default-rtdb.asia-southeast1.firebasedatabase.app/routes"
+        ).then();
+      }
+
+      function storePosition(position) {
+        let xhr = new XMLHttpRequest();
+        xhr.open(
+          "POST",
+          "https://bus-track-f7fe8-default-rtdb.asia-southeast1.firebasedatabase.app/routes"
+        );
+
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onload = () => console.log(xhr.responseText);
+
+        let data = {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+          speed: position.coords.speed,
+        };
+
+        xhr.send(data);
+      }
+    </script>
+  </body>
+</html>
