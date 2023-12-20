@@ -107,13 +107,14 @@ app.get('/api/bus/all', async (req, res) => {
 });
 
 //API route to fetch driver based on route ID 
+
 app.get('/api/bus/:routeID', async (req, res) => {
     const db = client.db(DB_NAME);
     const collection = db.collection(COLLECTION_NAME);
     
     try {
         const drivers = await collection.findOne({routeID: req.params.routeID});
-        if (drivers == null) res.send("Invalid Route ID")
+        if (drivers == null) res.status(200).send("Invalid Route ID")
         else
     res.send(drivers);
 } catch (error) {
